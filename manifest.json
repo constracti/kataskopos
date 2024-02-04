@@ -1,0 +1,20 @@
+{
+	"name": "Κατάσκοπος",
+	"description": "Παιχνίδι παρέας για 3-16 άτομα.",
+	"icons": [
+		{
+			"src": "images/192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "images/512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"theme_color": "#000000",
+	"background_color": "#ffffff",
+	"start_url": "index.html",
+	"display": "standalone"
+}
