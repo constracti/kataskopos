@@ -9,38 +9,89 @@
 		<link rel="manifest" href="manifest.json">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 		<style>
-		#role-list button {
+		#role-table button {
 			height: 60px;
 			width: 60px;
 		}
 		</style>
 	</head>
 	<body class="container d-flex flex-column p-2">
-		<h1 class="m-2">Κατάσκοπος</h1>
-		<h2 class="m-2">Παίκτες</h2>
-		<div class="m-2">
-			<div class="input-group">
-				<input type="number" id="player-count" class="form-control" min="3" max="16" value="10">
-				<button type="button" id="start" class="btn btn-primary">Εκκίνηση</button>
+		<h1 class="m-2 text-center">Κατάσκοπος</h1>
+		<div id="location-section" class="d-flex flex-column d-none">
+			<div class="d-flex flex-row justify-content-end">
+				<button id="location-next" type="button" class="btn btn-primary m-2">Παίκτες &raquo;</button>
+			</div>
+			<h2 class="m-2">Τοποθεσίες</h2>
+			<div id="location-table" class="m-2"></div>
+		</div>
+		<div id="player-section" class="d-flex flex-column d-none">
+			<div class="d-flex flex-row justify-content-between">
+				<button id="player-prev" type="button" class="btn btn-secondary m-2">&laquo; Τοποθεσίες</button>
+				<button id="player-next" type="button" class="btn btn-primary m-2">Ρόλοι &raquo;</button>
+			</div>
+			<h2 class="m-2 text-center">Παίκτες</h2>
+			<div class="d-flex flex-row">
+				<input id="player-range" type="range" class="form-range m-2" min="3" max="16">
+				<span id="player-range-text" class="m-2 text-end" style="width: 2em;"></span>
 			</div>
 		</div>
-		<h2 class="m-2">Ρόλοι</h2>
-		<div id="role-list" class="d-flex flex-row flex-wrap"></div>
-		<h2 class="m-2">Τοποθεσίες</h2>
-		<ul id="location-list" class="list-group m-2"></ul>
-		<div id="modal" class="modal fade" data-bs-backdrop="static">
+		<div id="role-section" class="d-flex flex-column d-none">
+			<div class="d-flex flex-row justify-content-between">
+				<button id="role-prev" type="button" class="btn btn-warning m-2" data-confirm="Να ακυρωθεί το παιχνίδι;">&laquo; Παίκτες</button>
+				<button id="role-next" type="button" class="btn btn-primary m-2">Παιχνίδι &raquo;</button>
+			</div>
+			<h2 class="m-2 text-center">Ρόλοι</h2>
+			<div id="role-table" class="d-flex flex-row flex-wrap"></div>
+		</div>
+		<div id="timer-section" class="d-flex flex-column d-none">
+			<div class="d-flex flex-row justify-content-between">
+				<button id="timer-prev" type="button" class="btn btn-secondary m-2">&laquo; Ρόλοι</button>
+				<button id="timer-next" type="button" class="btn btn-warning m-2" data-confirm="Να ακυρωθεί το παιχνίδι;">Αρχικοποίηση &raquo;</button>
+			</div>
+			<h2 class="m-2 text-center">Παιχνίδι</h2>
+			<div class="d-flex flex-row justify-content-between align-items-center">
+				<h4 class="m-2">Πλήθος Πολιτών</h4>
+				<div id="citizen-count" class="m-2 fs-4 lh-1"></div>
+			</div>
+			<div class="d-flex flex-row justify-content-between align-items-center">
+				<h4 class="m-2">Πλήθος Κατασκόπων</h4>
+				<div id="spy-count" class="m-2 fs-4 lh-1"></div>
+			</div>
+			<div class="d-flex flex-row justify-content-between align-items-center">
+				<h4 class="m-2">Χρόνος Παιχνιδιού</h4>
+				<div id="timer-count" class="m-2 fs-4 lh-1"></div>
+			</div>
+			<h4 class="m-2">Πιθανές Τοποθεσίες</h4>
+			<div id="location-list" class="m-2"></div>
+		</div>
+		<div id="role-modal" class="modal fade" data-bs-backdrop="static">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
-					<div id="role" class="modal-body text-center"></div>
+					<div id="role-text" class="modal-body text-center"></div>
+				</div>
+			</div>
+		</div>
+		<div id="confirm-modal" class="modal fade">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div id="confirm-modal-question" class="modal-body"></div>
+					<div class="modal-footer">
+						<button id="confirm-modal-accept" type="button" class="btn btn-primary">OK</button>
+					</div>
 				</div>
 			</div>
 		</div>
 		<hr class="m-2">
-		<p class="m-2 fs-6"><small>έκδοση 1.0.2</small></p>
+		<p class="m-2 fs-6"><small>έκδοση 2.0, 08-02-2024</small></p>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-md5@0.8.3/src/md5.min.js"></script>
+		<script src="resources.js"></script>
 		<script src="game.js"></script>
 		<script>
 		if ('serviceWorker' in navigator) {

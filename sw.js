@@ -1,13 +1,15 @@
-const VERSION = '1.0.2';
+const VERSION = '2.0';
 
 const APP_STATIC_RESOURCES = [
 	'manifest.json',
 	'images/512.png',
 	'.',
 	'index.html',
+	'resources.js',
 	'game.js',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js',
+	'https://cdn.jsdelivr.net/npm/js-md5@0.8.3/src/md5.min.js',
 ];
 
 self.addEventListener('install', (event) => {
