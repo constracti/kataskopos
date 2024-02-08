@@ -1,10 +1,11 @@
-const VERSION = '2.0';
+const VERSION = '2.1';
 
 const APP_STATIC_RESOURCES = [
 	'manifest.json',
 	'images/512.png',
 	'.',
 	'index.html',
+	'color-scheme.js',
 	'resources.js',
 	'game.js',
 	'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
