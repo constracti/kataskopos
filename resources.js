@@ -49,3 +49,4 @@ const locationSet = new Set([
 ]);
 
 const spyText = 'ΚΑΤΑΣΚΟΠΟΣ';
+const spySchoolText = 'Σχολή Κατασκόπων';

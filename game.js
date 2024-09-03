@@ -223,13 +223,19 @@ function draw() {
 	const locationList = [...locationSet].filter(location => !uncheckedLocations.has(location));
 	const location = locationList[Math.floor(Math.random() * locationList.length)];
 	const spySet = new Set();
-	const spy1 = parseInt(Math.floor(Math.random() * playerCount));
-	spySet.add(spy1);
-	if (playerCount > 8) {
-		let spy2 = parseInt(Math.floor(Math.random() * (playerCount - 1)));
-		if (spy2 >= spy1)
-			spy2++;
-		spySet.add(spy2);
+	if (location !== spySchoolText) {
+		const spy1 = parseInt(Math.floor(Math.random() * playerCount));
+		spySet.add(spy1);
+		if (playerCount > 8) {
+			let spy2 = parseInt(Math.floor(Math.random() * (playerCount - 1)));
+			if (spy2 >= spy1)
+				spy2++;
+			spySet.add(spy2);
+		}
+	} else {
+		[...Array(playerCount).keys()].forEach(function(player) {
+			spySet.add(player);
+		});
 	}
 	return {
 		location: location,
