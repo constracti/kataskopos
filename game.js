@@ -27,6 +27,20 @@ function playerCountLoad() {
 }
 playerCountLoad();
 
+let openedRoles;
+function openedRolesSave() {
+	if (openedRoles !== null) {
+		localStorage.setItem('openedRoles', JSON.stringify([...openedRoles]));
+	} else {
+		localStorage.removeItem('openedRoles');
+	}
+}
+function openedRolesLoad() {
+	const r = localStorage.getItem('openedRoles');
+	openedRoles = r !== null ? new Set(JSON.parse(r)) : null;
+}
+openedRolesLoad();
+
 let drawResult;
 function drawResultSave() {
 	if (drawResult !== null) {
@@ -105,7 +119,8 @@ function roleSectionShow() {
 	[...Array(playerCount).keys()].forEach(function(player) {
 		const button = document.createElement('button');
 		button.type = 'button';
-		button.className = 'btn btn-secondary m-2 fs-3';
+		button.className = 'btn m-2 fs-3';
+		button.classList.add(openedRoles.has(player) ? 'btn-danger' : 'btn-success');
 		button.innerHTML = player + 1;
 		button.dataset.bsToggle = 'modal';
 		button.dataset.bsTarget = '#role-modal';
@@ -113,9 +128,16 @@ function roleSectionShow() {
 		row.appendChild(button);
 	});
 	const roleModal = document.getElementById('role-modal');
+	const roleTitle = document.getElementById('role-title');
 	const roleText = document.getElementById('role-text');
 	roleModal.addEventListener('show.bs.modal', function(event) {
 		const button = event.relatedTarget;
+		openedRoles.add(parseInt(button.innerHTML) - 1);
+		openedRolesSave();
+		button.classList.remove('btn-success');
+		button.classList.add('btn-danger');
+		console.log(button.innerHTML);
+		roleTitle.innerHTML = roleTitle.dataset.text + ' ' + button.innerHTML;
 		roleText.innerHTML = button.dataset.bsBody;
 	});
 }
@@ -228,6 +250,8 @@ document.getElementById('player-next').addEventListener('click', () => {
 	playerCountSave();
 	drawResult = draw();
 	drawResultSave();
+	openedRoles = new Set();
+	openedRolesSave();
 	gameState = 'role';
 	gameStateSave();
 	ui();
@@ -242,6 +266,8 @@ document.getElementById('role-prev').addEventListener('click', event => {
 		drawResultSave();
 		startTime = null;
 		startTimeSave();
+		openedRoles = null;
+		openedRolesSave();
 		gameState = 'player';
 		gameStateSave();
 		ui();
@@ -286,6 +312,8 @@ document.getElementById('timer-next').addEventListener('click', event => {
 			clearInterval(timerInterval);
 			timerInterval = null;
 		}
+		openedRoles = null;
+		openedRolesSave();
 		gameState = 'location';
 		gameStateSave();
 		ui();
