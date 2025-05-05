@@ -156,8 +156,9 @@ let timerCallback = () => {
 const timerSection = document.getElementById('timer-section');
 function timerSectionShow() {
 	timerSection.classList.remove('d-none');
-	document.getElementById('citizen-count').innerHTML = playerCount - drawResult.spies.size;
-	document.getElementById('spy-count').innerHTML = drawResult.spies.size;
+	const theoreticalSpyCount = playerCount > 8 ? 2 : 1;
+	document.getElementById('citizen-count').innerHTML = playerCount - theoreticalSpyCount;
+	document.getElementById('spy-count').innerHTML = theoreticalSpyCount;
 	if (timerInterval === null) {
 		timerCallback();
 		timerInterval = setInterval(timerCallback, 1000);

@@ -1,4 +1,4 @@
-const VERSION = '2.2';
+const VERSION = '2.2.1';
 
 const APP_STATIC_RESOURCES = [
 	'manifest.json',
