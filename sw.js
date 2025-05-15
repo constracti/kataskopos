@@ -1,11 +1,12 @@
 const APP = 'kataskopos';
 
-const VERSION = '2.2.2';
+const VERSION = '2.2.3';
 
 const APP_CACHE = `${APP}-${VERSION}`;
 
 const APP_STATIC_RESOURCES = [
 	'manifest.json',
+	'images/192.png',
 	'images/512.png',
 	'.',
 	'index.html',
