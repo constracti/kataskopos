@@ -1,42 +1,44 @@
 // variables
 
+const app = 'kataskopos';
+
 let gameState;
 function gameStateSave() {
-	localStorage.setItem('gameState', gameState);
+	localStorage.setItem(app + 'GameState', gameState);
 }
 function gameStateLoad() {
-	gameState = localStorage.getItem('gameState') ?? 'location';
+	gameState = localStorage.getItem(app + 'GameState') ?? 'location';
 }
 gameStateLoad();
 
 let uncheckedLocations;
 function uncheckedLocationsSave() {
-	localStorage.setItem('uncheckedLocations', JSON.stringify([...uncheckedLocations]));
+	localStorage.setItem(app + 'UncheckedLocations', JSON.stringify([...uncheckedLocations]));
 }
 function uncheckedLocationsLoad() {
-	uncheckedLocations = new Set(JSON.parse(localStorage.getItem('uncheckedLocations') ?? JSON.stringify([])));
+	uncheckedLocations = new Set(JSON.parse(localStorage.getItem(app + 'UncheckedLocations') ?? JSON.stringify([])));
 }
 uncheckedLocationsLoad();
 
 let playerCount;
 function playerCountSave() {
-	localStorage.setItem('playerCount', playerCount);
+	localStorage.setItem(app + 'PlayerCount', playerCount);
 }
 function playerCountLoad() {
-	playerCount = parseInt(localStorage.getItem('playerCount') ?? '10');
+	playerCount = parseInt(localStorage.getItem(app + 'PlayerCount') ?? '10');
 }
 playerCountLoad();
 
 let openedRoles;
 function openedRolesSave() {
 	if (openedRoles !== null) {
-		localStorage.setItem('openedRoles', JSON.stringify([...openedRoles]));
+		localStorage.setItem(app + 'OpenedRoles', JSON.stringify([...openedRoles]));
 	} else {
-		localStorage.removeItem('openedRoles');
+		localStorage.removeItem(app + 'OpenedRoles');
 	}
 }
 function openedRolesLoad() {
-	const r = localStorage.getItem('openedRoles');
+	const r = localStorage.getItem(app + 'OpenedRoles');
 	openedRoles = r !== null ? new Set(JSON.parse(r)) : null;
 }
 openedRolesLoad();
@@ -44,16 +46,16 @@ openedRolesLoad();
 let drawResult;
 function drawResultSave() {
 	if (drawResult !== null) {
-		localStorage.setItem('drawResult', JSON.stringify({
+		localStorage.setItem(app + 'DrawResult', JSON.stringify({
 			location: drawResult.location,
 			spies: [...drawResult.spies],
 		}));
 	} else {
-		localStorage.removeItem('drawResult');
+		localStorage.removeItem(app + 'DrawResult');
 	}
 }
 function drawResultLoad() {
-	drawResult = JSON.parse(localStorage.getItem('drawResult'));
+	drawResult = JSON.parse(localStorage.getItem(app + 'DrawResult'));
 	if (drawResult !== null)
 		drawResult.spies = new Set(drawResult.spies);
 }
@@ -62,12 +64,12 @@ drawResultLoad();
 let startTime;
 function startTimeSave() {
 	if (startTime !== null)
-		localStorage.setItem('startTime', startTime);
+		localStorage.setItem(app + 'StartTime', startTime);
 	else
-		localStorage.removeItem('startTime');
+		localStorage.removeItem(app + 'StartTime');
 }
 function startTimeLoad() {
-	const t = localStorage.getItem('startTime');
+	const t = localStorage.getItem(app + 'StartTime');
 	startTime = t !== null ? parseInt(t) : null;
 }
 startTimeLoad();
@@ -282,7 +284,6 @@ document.getElementById('role-prev').addEventListener('click', event => {
 	const modal = new bootstrap.Modal(document.getElementById('confirm-modal'));
 	modal.show();
 });
-
 
 document.getElementById('role-next').addEventListener('click', () => {
 	roleSection.classList.add('d-none');
