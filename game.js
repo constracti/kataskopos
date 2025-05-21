@@ -1,44 +1,42 @@
 // variables
 
-const app = 'kataskopos';
-
 let gameState;
 function gameStateSave() {
-	localStorage.setItem(app + 'GameState', gameState);
+	localStorage.setItem('gameState', gameState);
 }
 function gameStateLoad() {
-	gameState = localStorage.getItem(app + 'GameState') ?? 'location';
+	gameState = localStorage.getItem('gameState') ?? 'location';
 }
 gameStateLoad();
 
 let uncheckedLocations;
 function uncheckedLocationsSave() {
-	localStorage.setItem(app + 'UncheckedLocations', JSON.stringify([...uncheckedLocations]));
+	localStorage.setItem('uncheckedLocations', JSON.stringify([...uncheckedLocations]));
 }
 function uncheckedLocationsLoad() {
-	uncheckedLocations = new Set(JSON.parse(localStorage.getItem(app + 'UncheckedLocations') ?? JSON.stringify([])));
+	uncheckedLocations = new Set(JSON.parse(localStorage.getItem('uncheckedLocations') ?? JSON.stringify([])));
 }
 uncheckedLocationsLoad();
 
 let playerCount;
 function playerCountSave() {
-	localStorage.setItem(app + 'PlayerCount', playerCount);
+	localStorage.setItem('playerCount', playerCount);
 }
 function playerCountLoad() {
-	playerCount = parseInt(localStorage.getItem(app + 'PlayerCount') ?? '10');
+	playerCount = parseInt(localStorage.getItem('playerCount') ?? '10');
 }
 playerCountLoad();
 
 let openedRoles;
 function openedRolesSave() {
 	if (openedRoles !== null) {
-		localStorage.setItem(app + 'OpenedRoles', JSON.stringify([...openedRoles]));
+		localStorage.setItem('openedRoles', JSON.stringify([...openedRoles]));
 	} else {
-		localStorage.removeItem(app + 'OpenedRoles');
+		localStorage.removeItem('openedRoles');
 	}
 }
 function openedRolesLoad() {
-	const r = localStorage.getItem(app + 'OpenedRoles');
+	const r = localStorage.getItem('openedRoles');
 	openedRoles = r !== null ? new Set(JSON.parse(r)) : null;
 }
 openedRolesLoad();
@@ -46,16 +44,16 @@ openedRolesLoad();
 let drawResult;
 function drawResultSave() {
 	if (drawResult !== null) {
-		localStorage.setItem(app + 'DrawResult', JSON.stringify({
+		localStorage.setItem('drawResult', JSON.stringify({
 			location: drawResult.location,
 			spies: [...drawResult.spies],
 		}));
 	} else {
-		localStorage.removeItem(app + 'DrawResult');
+		localStorage.removeItem('drawResult');
 	}
 }
 function drawResultLoad() {
-	drawResult = JSON.parse(localStorage.getItem(app + 'DrawResult'));
+	drawResult = JSON.parse(localStorage.getItem('drawResult'));
 	if (drawResult !== null)
 		drawResult.spies = new Set(drawResult.spies);
 }
@@ -64,12 +62,12 @@ drawResultLoad();
 let startTime;
 function startTimeSave() {
 	if (startTime !== null)
-		localStorage.setItem(app + 'StartTime', startTime);
+		localStorage.setItem('startTime', startTime);
 	else
-		localStorage.removeItem(app + 'StartTime');
+		localStorage.removeItem('startTime');
 }
 function startTimeLoad() {
-	const t = localStorage.getItem(app + 'StartTime');
+	const t = localStorage.getItem('startTime');
 	startTime = t !== null ? parseInt(t) : null;
 }
 startTimeLoad();
